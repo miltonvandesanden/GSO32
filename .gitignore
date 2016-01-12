@@ -43,8 +43,14 @@ Temporary Items
 .apdisk
 /GSOWeek11/nbproject/private/
 /Week17/nbproject/private/
+<<<<<<< HEAD
 *.class
 GSO32_Opdracht5_InternetBankieren/dist/web-files/javafx-loading-25x25.gif
 *.png
 GSO32_Opdracht5_InternetBankieren/dist/web-files/javafx-loading-100x100.gif
 *.jar
+=======
+/GSO32_Opdracht5_InternetBankieren/nbproject/private/
+/GSO32_Opdracht5_InternetBankieren/build/
+/GSO32_Opdracht5_InternetBankieren/dist/
+>>>>>>> origin/master
