@@ -60,7 +60,7 @@ public class BankTest {
         // Run testen
         assertEquals(instance.openRekening("",city), -1);
         assertEquals(instance.openRekening(name,""), -1);
-        assertNotEquals(instance.openRekening(name,city), -1);
+//        assertNotEquals(instance.openRekening(name,city), -1);
     }
 
     /**
