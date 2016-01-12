@@ -1,14 +1,12 @@
 package bank.bankieren;
 
-import ObserverObserverable.PropertyListener;
 import fontys.util.*;
-import java.beans.PropertyChangeEvent;
 
 /**
  * @author 871059
  * 
  */
-public interface IBank  {
+public interface IBank {
 
     /**
      * creatie van een nieuwe bankrekening met een identificerend rekeningnummer; 
@@ -52,27 +50,4 @@ public interface IBank  {
      * @return de naam van deze bank
      */
     String getName();
-    
-        /**
-     * voeg een listener toe om te vertellen als er een update is
-     * @param pl
-     * @param property
-     */
-    void addListener(PropertyListener pl, String property);
-    
-    /**
-     * verwijder een listener
-     * @param pl
-     * @param property
-     */
-    void removeListener(PropertyListener pl, String property);
-    
-        /**
-     * informt alle listeners dat een verandering is
-     * @param update
-     * @param text
-     * @param oldVal
-     * @param newVal
-    */
-    void inform(IRekening update, String text, Object oldVal, Object newVal);
 }

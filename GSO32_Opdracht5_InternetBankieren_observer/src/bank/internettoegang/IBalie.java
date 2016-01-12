@@ -1,7 +1,5 @@
 package bank.internettoegang;
 
-import ObserverObserverable.PropertyListener;
-import bank.bankieren.IRekening;
 import java.rmi.*;
 
 
@@ -30,29 +28,6 @@ public interface IBalie extends Remote {
    * account mits accountnaam en wachtwoord matchen, anders null
    */
   IBankiersessie logIn(String accountnaam, String wachtwoord) throws RemoteException;
-  
-    /**
-     * voeg een listener toe om te vertellen als er een update is
-     * @param pl
-     * @param property
-     */
-    void addListener(PropertyListener pl, String property);
-    
-    /**
-     * verwijder een listener
-     * @param pl
-     * @param property
-     */
-    void removeListener(PropertyListener pl, String property);
-    
-        /**
-     * informt alle listeners dat een verandering is
-     * @param update
-     * @param text
-     * @param oldVal
-     * @param newVal
-    */
-    void inform(IRekening update, String text, Object oldVal, Object newVal);
 
 }
 

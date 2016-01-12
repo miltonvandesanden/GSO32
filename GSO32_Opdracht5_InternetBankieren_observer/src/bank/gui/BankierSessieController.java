@@ -5,14 +5,12 @@
  */
 package bank.gui;
 
-import ObserverObserverable.PropertyListener;
 import bank.bankieren.IRekening;
 import bank.bankieren.Money;
 import bank.internettoegang.IBalie;
 import bank.internettoegang.IBankiersessie;
 import fontys.util.InvalidSessionException;
 import fontys.util.NumberDoesntExistException;
-import java.beans.PropertyChangeEvent;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -31,7 +29,7 @@ import javafx.scene.control.TextField;
  *
  * @author frankcoenen
  */
-public class BankierSessieController implements Initializable, PropertyListener {
+public class BankierSessieController implements Initializable {
 
     @FXML
     private Hyperlink hlLogout;
@@ -112,10 +110,5 @@ public class BankierSessieController implements Initializable, PropertyListener 
             e1.printStackTrace();
             taMessage.setText(e1.getMessage());
         }
-    }
-
-    @Override
-    public void PropertyChange(PropertyChangeEvent ev) {
-        tfBalance.setText(ev.getNewValue().toString());
     }
 }

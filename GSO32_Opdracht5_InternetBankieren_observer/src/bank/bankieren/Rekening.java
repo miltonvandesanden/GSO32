@@ -7,8 +7,6 @@ class Rekening implements IRekeningTbvBank {
     private int nr;
     private IKlant eigenaar;
     private Money saldo;
-    
-    private IBank bp;
 
     /**
      * creatie van een bankrekening met saldo van 0.0<br>
@@ -19,8 +17,8 @@ class Rekening implements IRekeningTbvBank {
      * @param klant de eigenaar van deze rekening
      * @param currency de munteenheid waarin het saldo is uitgedrukt
      */
-    Rekening(int number, IKlant klant, String currency, IBank bank) {
-        this(number, klant, new Money(0, currency), bank);
+    Rekening(int number, IKlant klant, String currency) {
+        this(number, klant, new Money(0, currency));
     }
 
     /**
@@ -33,12 +31,10 @@ class Rekening implements IRekeningTbvBank {
      * @param city de woonplaats van de eigenaar
      * @param currency de munteenheid waarin het saldo is uitgedrukt
      */
-    Rekening(int number, IKlant klant, Money saldo, IBank bank) {
+    Rekening(int number, IKlant klant, Money saldo) {
         this.nr = number;
         this.eigenaar = klant;
         this.saldo = saldo;
-        
-        bp = bank;
     }
 
     public boolean equals(Object obj) {
@@ -66,14 +62,12 @@ class Rekening implements IRekeningTbvBank {
     }
 
     public boolean muteer(Money bedrag) {
-        Money oldSaldo = saldo;
         if (bedrag.getCents() == 0) {
             throw new RuntimeException(" bedrag = 0 bij aanroep 'muteer'");
         }
 
         if (isTransferPossible(bedrag)) {
             saldo = Money.sum(saldo, bedrag);
-            bp.inform(this, "saldo", oldSaldo, saldo);
             return true;
         }
         return false;

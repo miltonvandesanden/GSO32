@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="GSO32_Opdracht5_InternetBankieren.jnlp">
+  <information>
+    <title>GSO32_Opdracht5_InternetBankieren</title>
+    <vendor>Martijn</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="GSO32_Opdracht5_InternetBankieren.jar" size="39476" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="GSO32_Opdracht5_InternetBankieren" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="gso32_opdracht5_internetbankieren.GSO32_Opdracht5_InternetBankieren"  name="GSO32_Opdracht5_InternetBankieren" />
+  <update check="always"/>
+</jnlp>

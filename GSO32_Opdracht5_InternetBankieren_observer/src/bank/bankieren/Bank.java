@@ -1,8 +1,6 @@
 package bank.bankieren;
 
-import ObserverObserverable.PropertyListener;
 import fontys.util.*;
-import java.beans.PropertyChangeEvent;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -17,16 +15,12 @@ public class Bank implements IBank {
 	private Collection<IKlant> clients;
 	private int nieuwReknr;
 	private String name;
-        
-        private Collection<PropertyListener> listeners;
 
 	public Bank(String name) {
 		accounts = new HashMap<Integer,IRekeningTbvBank>();
 		clients = new ArrayList<IKlant>();
 		nieuwReknr = 100000000;	
 		this.name = name;	
-                
-                listeners = new ArrayList<>();
 	}
 
 	public synchronized int openRekening(String name, String city) {
@@ -34,7 +28,7 @@ public class Bank implements IBank {
 			return -1;
 
 		IKlant klant = getKlant(name, city);
-		IRekeningTbvBank account = new Rekening(nieuwReknr, klant, Money.EURO, this);
+		IRekeningTbvBank account = new Rekening(nieuwReknr, klant, Money.EURO);
 		accounts.put(nieuwReknr,account);
 		nieuwReknr++;
 		return nieuwReknr-1;
@@ -88,29 +82,5 @@ public class Bank implements IBank {
 	public String getName() {
 		return name;
 	}
-        
-            
-    /**
-     * informt alle listeners dat een verandering is
-     * @param update
-     * @param text
-     * @param oldVal
-     * @param newVal
-    */
-    @Override
-    public void inform(IRekening update, String text, Object oldVal, Object newVal) {
-        for(PropertyListener pl : listeners) {
-            pl.PropertyChange(new PropertyChangeEvent(update, text, oldVal, newVal));
-        }
-    }
 
-    @Override
-    public void addListener(PropertyListener pl, String s) {
-        listeners.add(pl);
-    }
-
-    @Override
-    public void removeListener(PropertyListener pl, String s) {
-        listeners.remove(pl);
-    }
 }
