@@ -170,10 +170,12 @@ public class BankiersessieTest
     public void testLogUit() throws Exception
     {
         System.out.println("logUit");
-        Bankiersessie instance = null;
+        
+        Bank bank = new Bank("testBank");
+        bank.openRekening("testName", "testCity");
+        Bankiersessie instance = new Bankiersessie(100000000, bank);
         instance.logUit();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(instance);
     }
     
 }
