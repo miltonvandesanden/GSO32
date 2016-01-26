@@ -12,6 +12,7 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 	private HashMap<String, ILoginAccount> loginaccounts;
 	//private Collection<IBankiersessie> sessions;
 	private java.util.Random random;
+        private Money saldo;
 
 	public Balie(IBank bank) throws RemoteException {
 		this.bank = bank;
@@ -42,18 +43,24 @@ public class Balie extends UnicastRemoteObject implements IBalie {
 		return accountname;
 	}
 
-	public IBankiersessie logIn(String accountnaam, String wachtwoord)
-			throws RemoteException {
-		ILoginAccount loginaccount = loginaccounts.get(accountnaam);
-		if (loginaccount == null)
-			return null;
-		if (loginaccount.checkWachtwoord(wachtwoord)) {
-			IBankiersessie sessie = new Bankiersessie(loginaccount
-					.getReknr(), bank);
-			
-		 	return sessie;
-		}
-		else return null;
+	public IBankiersessie logIn(String accountnaam, String wachtwoord) throws RemoteException
+        {
+            ILoginAccount loginaccount = loginaccounts.get(accountnaam);
+            
+            if (loginaccount == null)
+            {
+                return null;   
+            }
+            
+            if (loginaccount.checkWachtwoord(wachtwoord))
+            {
+                IBankiersessie sessie = new Bankiersessie(loginaccount.getReknr(), bank);		
+                return sessie;
+            }
+            else
+            {
+                return null;
+            }
 	}
 
 	private static final String CHARS = "abcdefghijklmnopqrstuvwxyz0123456789";

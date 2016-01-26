@@ -1,9 +1,11 @@
 package bank.bankieren;
 
 import fontys.util.*;
-
 import java.rmi.RemoteException;
+
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Bank implements IBank {
 
@@ -23,15 +25,25 @@ public class Bank implements IBank {
 		this.name = name;	
 	}
 
+        @Override
 	public synchronized int openRekening(String name, String city) {
-		if (name.equals("") || city.equals(""))
-			return -1;
-
-		IKlant klant = getKlant(name, city);
-		IRekeningTbvBank account = new Rekening(nieuwReknr, klant, Money.EURO);
-		accounts.put(nieuwReknr,account);
-		nieuwReknr++;
-		return nieuwReknr-1;
+            try
+            {
+                if (name.equals("") || city.equals(""))
+                {
+                    return -1;
+                }
+                
+                IKlant klant = getKlant(name, city);
+                IRekeningTbvBank account = new Rekening(nieuwReknr, klant, new Money(50000, Money.EURO));
+                accounts.put(nieuwReknr,account);
+                nieuwReknr++;
+                return nieuwReknr-1;
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(Bank.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return -1;
 	}
 
 	private IKlant getKlant(String name, String city) {
@@ -44,10 +56,12 @@ public class Bank implements IBank {
 		return klant;
 	}
 
+        @Override
 	public IRekening getRekening(int nr) {
 		return accounts.get(nr);
 	}
 
+        @Override
 	public synchronized boolean maakOver(int source, int destination, Money money)
 			throws NumberDoesntExistException {
 		if (source == destination)

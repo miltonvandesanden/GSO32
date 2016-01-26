@@ -1,30 +1,41 @@
 package bank.internettoegang;
 
+import bank.bankieren.BasicPublisher;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import bank.bankieren.IBank;
 import bank.bankieren.IRekening;
 import bank.bankieren.Money;
+import bank.bankieren.RemotePropertyListener;
+import bank.bankieren.RemotePublisher;
 
 import fontys.util.InvalidSessionException;
 import fontys.util.NumberDoesntExistException;
+import java.beans.PropertyChangeEvent;
 
-public class Bankiersessie extends UnicastRemoteObject implements
-		IBankiersessie {
+public class Bankiersessie extends UnicastRemoteObject implements IBankiersessie, RemotePropertyListener, RemotePublisher {
 
 	private static final long serialVersionUID = 1L;
 	private long laatsteAanroep;
 	private int reknr;
 	private IBank bank;
+        private String saldo;
+        private String[] saldoArray;
+        private BasicPublisher basicPublisher;
 
 	public Bankiersessie(int reknr, IBank bank) throws RemoteException {
 		laatsteAanroep = System.currentTimeMillis();
 		this.reknr = reknr;
 		this.bank = bank;
-		
+                saldoArray = new String[1];
+                saldoArray[0] = saldo.toString();
+                
+                bank.getRekening(reknr).addListener(this, saldo);
+                basicPublisher = new BasicPublisher(saldoArray);
 	}
 
+        @Override
 	public boolean isGeldig() {
 		return System.currentTimeMillis() - laatsteAanroep < GELDIGHEIDSDUUR;
 	}
@@ -63,8 +74,28 @@ public class Bankiersessie extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void logUit() throws RemoteException {
-		UnicastRemoteObject.unexportObject(this, true);
+	public void logUit() throws RemoteException
+        {
+            bank.getRekening(reknr).removeListener(this, saldo);
+            UnicastRemoteObject.unexportObject(this, true);
 	}
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) throws RemoteException
+    {
+        saldo = (String) evt.getNewValue();
+    }
+
+    @Override
+    public void addListener(RemotePropertyListener listener, String property)
+    {
+        basicPublisher.addListener(listener, property);
+    }
+
+    @Override
+    public void removeListener(RemotePropertyListener listener, String property)
+    {
+        basicPublisher.removeListener(listener, property);
+    }
 
 }

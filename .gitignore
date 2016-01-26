@@ -54,3 +54,8 @@ GSO32_Opdracht5_InternetBankieren/dist/web-files/javafx-loading-100x100.gif
 /GSO32_Opdracht5_InternetBankieren/build/
 /GSO32_Opdracht5_InternetBankieren/dist/
 >>>>>>> origin/master
+*.properties
+/GSO32_Opdracht5_InternetBankieren_observer/build/
+/GSO32_Opdracht5_InternetBankieren_observer/dist/
+/JSF32_Week17_JNA/nbproject/private/
+/JSF32_Week17_JNA/build

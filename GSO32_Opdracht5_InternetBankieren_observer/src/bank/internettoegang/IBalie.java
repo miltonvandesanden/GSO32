@@ -15,6 +15,7 @@ public interface IBalie extends Remote {
    * vier of meer dan acht karakters lang is en anders de gegenereerde 
    * accountnaam(8 karakters lang) waarmee er toegang tot de nieuwe bankrekening
    * kan worden verkregen
+     * @throws java.rmi.RemoteException
    */
   String openRekening(String naam, String plaats, String wachtwoord) throws RemoteException;
 
@@ -26,6 +27,7 @@ public interface IBalie extends Remote {
    * @return de gegenereerde sessie waarbinnen de gebruiker 
    * toegang krijgt tot de bankrekening die hoort bij het betreffende login-
    * account mits accountnaam en wachtwoord matchen, anders null
+     * @throws java.rmi.RemoteException
    */
   IBankiersessie logIn(String accountnaam, String wachtwoord) throws RemoteException;
 
